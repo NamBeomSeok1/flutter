@@ -1,7 +1,6 @@
-Iterable<int> i;
 int sumNumbersInArray(Iterable<int> i) {
   var totalSum = 0;
-  for (var a in i) {
+  for (final a in i) {
     totalSum = totalSum + a;
   }
   return totalSum;
