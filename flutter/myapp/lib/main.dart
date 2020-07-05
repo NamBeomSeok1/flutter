@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-final List<int> list = [];
 void main() {
-  for (int i = 1; i < 101; i++) {
-    list.add(i);
 
-  }
   runApp(MyApp());
 }
 
@@ -78,15 +74,37 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Student"),
       ),
       body: Center(
-            child: ListView.builder(
-                padding: const EdgeInsets.all(8),
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    height: 10,
-                    child: Center(child: Text('Student ${list[index]}')),
+            // child: ListView.builder(
+            //     padding: const EdgeInsets.all(8),
+            //     itemBuilder: (BuildContext context, int index) {
+            //       return Container(
+            //         height: 10,
+            //         child: Center(child: Text('Student ${list[index]}')),
+            //       );
+            //     }),
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              '이곳은 데이터 상관없이 불려져 오는 곳입니다.',
+              style: TextStyle(fontSize: 20),
+            ),FutureBuilder(
+              future: Future.delayed(Duration(seconds: 2),()=>'Large Latte'),
+              builder: (context,snapshop){
+                if(snapshop.hasData==false){
+                   return LinearProgressIndicator();
+                }else if(snapshop.hasError){
+                    return Padding(child: Text('ERROR:${snapshop.hasError}'));
+                }else{
+                  return Padding(padding: const EdgeInsets.all(8.0),
+                  child: Text(snapshop.data.toString())
                   );
-                }),
+                }
+              }          
+             ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }
